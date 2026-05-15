@@ -2,7 +2,6 @@ from rank_bm25 import BM25Okapi
 import numpy as np
 from typing import List, Dict, Tuple
 from langchain_core.documents import Document
-from langchain.retrievers import EnsembleRetriever
 from langchain_community.retrievers import BM25Retriever
 import logging
 from sentence_transformers import CrossEncoder
