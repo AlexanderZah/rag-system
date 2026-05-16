@@ -109,8 +109,8 @@ score = (подтверждённые / всего утверждений)
 
         try:
             response = self.llm.invoke(prompt)
-            raise Exception(f'{response}')
-            print(response)
+
+            print(f'RAGEvaluator response LLM {response}')
             # Извлекаем JSON из ответа (на случай, если модель добавила текст)
             json_start = response.find('{')
             json_end = response.rfind('}') + 1
