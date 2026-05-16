@@ -10,7 +10,7 @@ embeddings = HuggingFaceEmbeddings(
 )
 
 loader = RCKDataLoader(embeddings=embeddings, db_index_name=DB_INDEX_NAME)
-db = loader.get_index_db_from_sqlite(DB_PATH, force_rebuild=True)
+db = loader.get_index_db(DB_PATH, force_rebuild=True)
 
 # Получаем все документы
 all_docs = list(db.docstore._dict.values())

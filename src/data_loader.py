@@ -109,7 +109,7 @@ class RCKDataLoader:
             print(f'Ошибка обработки {filename}: {e}')
             return []
 
-    def get_index_db_from_sqlite(
+    def get_index_db(
         self,
         sqlite_path: str,
         force_rebuild: bool = False

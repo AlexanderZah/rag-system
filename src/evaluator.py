@@ -88,15 +88,16 @@ score = (подтверждённые / всего утверждений)
         question: str,
         answer: str,
         context_docs: List[Document],
+        context_str,
         ground_truth: str
     ) -> Dict[str, Any]:
         """Оценка одного примера"""
-
-        # Формируем контекст
-        context_str = "\n\n".join([
-            f"Чанк {i+1}:\n{doc.page_content}"
-            for i, doc in enumerate(context_docs)
-        ])
+        if not context_str:
+            # Формируем контекст
+            context_str = "\n\n".join([
+                f"Чанк {i+1}:\n{doc.page_content}"
+                for i, doc in enumerate(context_docs)
+            ])
 
         prompt = self.prompt_template.format(
             context=context_str,

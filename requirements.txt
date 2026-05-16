@@ -2,7 +2,7 @@ langchain==0.3.13
 langchain-community==0.3.13
 langchain-huggingface==0.1.2
 langchain-text-splitters==0.3.4
-faiss-gpu-cu11==1.7.2
+# faiss-gpu-cu11==1.14.1
 pymupdf==1.24.9
 pymupdf4llm==0.0.20
 docling==2.10.0
