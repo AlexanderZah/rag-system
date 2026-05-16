@@ -6,6 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 import json
 import numpy as np
+import re
 
 
 class RAGEvaluator:
@@ -113,6 +114,8 @@ score = (подтверждённые / всего утверждений)
             json_start = response.find('{')
             json_end = response.rfind('}') + 1
             json_str = response[json_start:json_end]
+            json_str = json_str.replace('\n', ' ').replace('\r', ' ').strip()
+            json_str = re.sub(r'\s+', ' ', json_str)
 
             result = json.loads(json_str)
             return result
