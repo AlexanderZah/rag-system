@@ -3,7 +3,6 @@ from rank_bm25 import BM25Okapi
 import numpy as np
 from typing import List, Dict, Tuple
 from langchain_core.documents import Document
-from langchain_community.retrievers import BM25Retriever
 import logging
 from sentence_transformers import CrossEncoder
 import torch
@@ -34,9 +33,6 @@ class AdvancedHybridRetriever:
         self.documents = documents
         self.bm25 = BM25Okapi([doc.page_content.split() for doc in documents])
         self.reranker = reranker or Reranker()
-
-        self.bm25_retriever = BM25Retriever.from_documents(documents)
-        self.bm25_retriever.k = 20
 
     def _vector_search(self, query: str, k: int = 20) -> List[Document]:
         return self.vectorstore.similarity_search(query, k=k)

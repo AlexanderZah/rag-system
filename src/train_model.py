@@ -6,36 +6,33 @@ import json
 from config import TRAIN_DATA_PATH, TRAIN_MODEL_PATH
 
 
-model = SentenceTransformer(
-    "sentence-transformers/paraphrase-multilingual-mpnet-base-v2")
+def train_model():
+    model = SentenceTransformer(
+        "sentence-transformers/paraphrase-multilingual-mpnet-base-v2")
 
+    with open(TRAIN_DATA_PATH, "r", encoding="utf-8") as f:
+        train_data = json.load(f)
 
-with open(TRAIN_DATA_PATH, "r", encoding="utf-8") as f:
-    train_data = json.load(f)
+    train_examples = []
+    for item in train_data:
+        train_examples.append(InputExample(
+            texts=[item["anchor"], item["positive"]]))
 
+    train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=16)
 
-train_examples = []
-for item in train_data:
-    train_examples.append(InputExample(
-        texts=[item["anchor"], item["positive"]]))
+    train_loss = losses.MultipleNegativesRankingLoss(model)
 
+    model.fit(
+        train_objectives=[(train_dataloader, train_loss)],
+        epochs=3,
+        warmup_steps=100,
+        output_path=TRAIN_MODEL_PATH,
+        show_progress_bar=True
+    )
 
-train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=16)
+    finetuned_embeddings = HuggingFaceEmbeddings(
+        model_name=TRAIN_MODEL_PATH,
+        model_kwargs={'device': 'cuda'}
+    )
 
-
-train_loss = losses.MultipleNegativesRankingLoss(model)
-
-
-model.fit(
-    train_objectives=[(train_dataloader, train_loss)],
-    epochs=3,
-    warmup_steps=100,
-    output_path=TRAIN_MODEL_PATH,
-    show_progress_bar=True
-)
-
-
-finetuned_embeddings = HuggingFaceEmbeddings(
-    model_name=TRAIN_MODEL_PATH,
-    model_kwargs={'device': 'cuda'}
-)
+    return finetuned_embeddings
