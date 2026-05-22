@@ -4,7 +4,7 @@ BASE_DIR = Path(__file__).parent.parent
 DATA_DIR = BASE_DIR / "data"
 DB_PATH = ""
 DATASET_EXCEL_PATH = DATA_DIR / "dataset.xlsx"
-
+OUTPUT_PATH = BASE_DIR / 'output'
 MODEL_EMBEDDINGS = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
 DB_INDEX_NAME = "sentence-transformers_paraphrase-multilingual-mpnet-base-v2"
 
