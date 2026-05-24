@@ -3,3 +3,5 @@ __pycache__
 diplom (11).ipynb
 data/*.json
 data/*.xlsx
+output/*.json
+output/*.xlsx
