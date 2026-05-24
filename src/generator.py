@@ -47,7 +47,7 @@ class EnhancedGenerator:
         query: str,
         context_str: str,
         max_new_tokens: int = 1024,
-        temperature: float = 0.1,
+        temperature: float = 0.0,
         top_p: float = 1.0,
         repetition_penalty: float = 1.05,
         show_prompt: bool = False
@@ -83,7 +83,7 @@ class EnhancedGenerator:
             outputs = self.model.generate(
                 **model_inputs,
                 max_new_tokens=max_new_tokens,
-                do_sample=True,
+                do_sample=False,
                 temperature=temperature,
                 top_p=top_p,
                 repetition_penalty=repetition_penalty,
