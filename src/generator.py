@@ -50,7 +50,8 @@ class EnhancedGenerator:
         temperature: float = 0.0,
         top_p: float = 1.0,
         repetition_penalty: float = 1.05,
-        show_prompt: bool = False
+        show_prompt: bool = False,
+        do_sample: bool = False
     ) -> str:
 
         messages = [
@@ -83,7 +84,7 @@ class EnhancedGenerator:
             outputs = self.model.generate(
                 **model_inputs,
                 max_new_tokens=max_new_tokens,
-                do_sample=False,
+                do_sample=do_sample,
                 temperature=temperature,
                 top_p=top_p,
                 repetition_penalty=repetition_penalty,
