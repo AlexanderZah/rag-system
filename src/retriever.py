@@ -6,6 +6,7 @@ from langchain_core.documents import Document
 import logging
 from sentence_transformers import CrossEncoder
 import torch
+from langchain_community.vectorstores.utils import DistanceStrategy
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -35,7 +36,7 @@ class AdvancedHybridRetriever:
         self.reranker = reranker or Reranker()
 
     def _vector_search(self, query: str, k: int = 20) -> List[Document]:
-        return self.vectorstore.similarity_search(query, k=k)
+        return self.vectorstore.similarity_search(query, k=k, distance_strategy=DistanceStrategy.COSINE)
 
     def _bm25_search(self, query: str, k: int = 20) -> List[Document]:
         scores = self.bm25.get_scores(query.split())
